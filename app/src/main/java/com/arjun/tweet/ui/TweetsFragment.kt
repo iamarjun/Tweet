@@ -13,9 +13,11 @@ import com.arjun.tweet.R
 import com.arjun.tweet.databinding.TweetsFragmentBinding
 import com.arjun.tweet.util.Resource
 import com.arjun.tweet.util.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import timber.log.Timber
 
+@AndroidEntryPoint
 class TweetsFragment : Fragment() {
 
     private val viewModel by viewModels<TweetsViewModel>()
