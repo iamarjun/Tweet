@@ -1,8 +1,9 @@
 package com.arjun.tweet.ui
 
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -10,14 +11,11 @@ import com.arjun.tweet.R
 import com.arjun.tweet.databinding.LayoutTweetItemBinding
 import com.arjun.tweet.models.Data
 import com.arjun.tweet.util.GlideApp
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
-import timber.log.Timber
 
 class TweetsAdapter(private val interaction: Interaction? = null) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
+
+    private val originalTweets = arrayListOf<Data>()
 
     private val itemCallback = object : DiffUtil.ItemCallback<Data>() {
 
@@ -58,7 +56,8 @@ class TweetsAdapter(private val interaction: Interaction? = null) :
     }
 
     fun submitList(list: List<Data>) {
-        differ.submitList(list)
+        originalTweets.addAll(list)
+        differ.submitList(originalTweets)
     }
 
     class TweetsViewHolder
@@ -88,6 +87,34 @@ class TweetsAdapter(private val interaction: Interaction? = null) :
 
     interface Interaction {
         fun onItemSelected(position: Int, item: Data)
+    }
+
+    override fun getFilter(): Filter = TweetFiler()
+
+    private inner class TweetFiler : Filter() {
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val result = arrayListOf<Data>()
+            constraint?.let { query ->
+                if (query.isNotEmpty()) {
+                    result.addAll(originalTweets.filter { it.contains(query) })
+                } else
+                    result.addAll(originalTweets)
+            }
+
+            return FilterResults().apply {
+                count = result.size
+                values = result
+            }
+        }
+
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            results?.let {
+                val list = it.values as List<Data>
+                differ.submitList(list)
+                notifyDataSetChanged()
+            }
+        }
+
     }
 }
 

@@ -18,4 +18,9 @@ data class Data(
     val retweetCount: Int = 0,
     @Json(name = "text")
     val text: String = ""
-)
+) {
+    fun contains(charSequence: CharSequence): Boolean =
+        (handle.contains(charSequence, ignoreCase = true) ||
+                name.contains(charSequence, ignoreCase = true) ||
+                text.contains(charSequence, ignoreCase = true))
+}

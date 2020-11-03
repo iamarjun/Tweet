@@ -35,12 +35,14 @@
                 android:hint="@string/enter_text">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/search_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/search"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
