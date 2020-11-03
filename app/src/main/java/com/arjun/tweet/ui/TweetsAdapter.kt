@@ -67,7 +67,7 @@ class TweetsAdapter(private val interaction: Interaction? = null) :
                 userHandle.text = item.handle
                 likeCount.text = "${item.favoriteCount}"
                 retweetCount.text = "${item.retweetCount}"
-
+                tweet.text = item.text
                 root.setOnClickListener {
                     interaction?.onItemSelected(adapterPosition, item)
                 }

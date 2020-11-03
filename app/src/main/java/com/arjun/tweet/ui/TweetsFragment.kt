@@ -52,6 +52,7 @@ class TweetsFragment : Fragment() {
                     }
                     is Resource.Success -> {
                         Timber.d("${it.data}")
+                        tweetsAdapter.submitList(it.data)
                     }
                     is Resource.Error -> {
                     }
