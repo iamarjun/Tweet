@@ -1,4 +1,4 @@
-package com.arjun.tweet.ui
+package com.arjun.tweet.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

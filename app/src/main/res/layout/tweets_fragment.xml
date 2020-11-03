@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/blue_grey_50"
     android:padding="16dp"
-    tools:context=".ui.TweetsFragment">
+    tools:context=".ui.home.TweetsFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_search"
@@ -111,7 +111,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true" />
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading" />
 
     </com.google.android.material.card.MaterialCardView>
 

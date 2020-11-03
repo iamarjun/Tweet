@@ -1,4 +1,4 @@
-package com.arjun.tweet.ui
+package com.arjun.tweet.ui.home
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel

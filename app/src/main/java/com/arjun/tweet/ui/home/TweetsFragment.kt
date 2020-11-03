@@ -1,11 +1,9 @@
-package com.arjun.tweet.ui
+package com.arjun.tweet.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -36,8 +34,6 @@ class TweetsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.loading.setAnimationFromUrl("https://gist.githubusercontent.com/nirav-tukadiya/ee89ad79fd92b3bafd6cab100effd0c8/raw/3a757e35be40b5dd52d540fbef1a0768ee385358/loading.json")
 
         binding.tweetList.apply {
             layoutManager = LinearLayoutManager(requireContext())
