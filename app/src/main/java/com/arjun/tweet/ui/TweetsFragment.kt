@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -46,16 +47,22 @@ class TweetsFragment : Fragment() {
         }
 
         lifecycleScope.launchWhenStarted {
+            
             viewModel.tweets.collect {
+                binding.progress.isVisible = it is Resource.Loading
+
                 when (it) {
                     is Resource.Loading -> {
+
                     }
                     is Resource.Success -> {
                         Timber.d("${it.data}")
                         tweetsAdapter.submitList(it.data)
                     }
                     is Resource.Error -> {
+                        Timber.e(it.exception)
                     }
+
                 }
             }
         }
