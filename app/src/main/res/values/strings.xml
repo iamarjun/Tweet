@@ -2,4 +2,5 @@
     <string name="app_name">Tweet</string>
     <string name="enter_text">Enter Text</string>
     <string name="search">Search</string>
+    <string name="eg_wubba_lubba_dub_dub">eg: Wubba lubba dub dub</string>
 </resources>

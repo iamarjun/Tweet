@@ -15,6 +15,7 @@ import com.arjun.tweet.R
 import com.arjun.tweet.databinding.TweetsFragmentBinding
 import com.arjun.tweet.util.Resource
 import com.arjun.tweet.util.viewBinding
+import com.arjun.tweet.views.RecyclerViewEmptyLoadingSupport
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import timber.log.Timber
@@ -46,6 +47,8 @@ class TweetsFragment : Fragment() {
                     (binding.tweetList.layoutManager as LinearLayoutManager).orientation
                 )
             )
+            emptyStateView = binding.empty
+            loadingStateView = binding.loading
             adapter = tweetsAdapter
         }
 
@@ -57,21 +60,19 @@ class TweetsFragment : Fragment() {
         lifecycleScope.launchWhenStarted {
             
             viewModel.tweets.collect {
-                binding.loading.isVisible = it is Resource.Loading
 
                 when (it) {
                     is Resource.Loading -> {
+                        binding.tweetList.stateView = RecyclerViewEmptyLoadingSupport.RecyclerViewEnum.LOADING
                     }
                     is Resource.Success -> {
                         Timber.d("${it.data}")
-                        binding.loading.cancelAnimation()
-                        binding.loading.clearAnimation()
+                        binding.tweetList.stateView = RecyclerViewEmptyLoadingSupport.RecyclerViewEnum.NORMAL
                         tweetsAdapter.submitList(it.data)
                     }
                     is Resource.Error -> {
+                        binding.tweetList.stateView = RecyclerViewEmptyLoadingSupport.RecyclerViewEnum.NORMAL
                         Timber.e(it.exception)
-                        binding.loading.cancelAnimation()
-                        binding.loading.clearAnimation()
                     }
 
                 }
