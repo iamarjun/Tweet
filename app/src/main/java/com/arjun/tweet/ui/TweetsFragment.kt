@@ -35,6 +35,8 @@ class TweetsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.loading.setAnimationFromUrl("https://gist.githubusercontent.com/nirav-tukadiya/ee89ad79fd92b3bafd6cab100effd0c8/raw/3a757e35be40b5dd52d540fbef1a0768ee385358/loading.json")
+
         binding.tweetList.apply {
             layoutManager = LinearLayoutManager(requireContext())
             addItemDecoration(
@@ -49,18 +51,21 @@ class TweetsFragment : Fragment() {
         lifecycleScope.launchWhenStarted {
             
             viewModel.tweets.collect {
-                binding.progress.isVisible = it is Resource.Loading
+                binding.loading.isVisible = it is Resource.Loading
 
                 when (it) {
                     is Resource.Loading -> {
-
                     }
                     is Resource.Success -> {
                         Timber.d("${it.data}")
+                        binding.loading.cancelAnimation()
+                        binding.loading.clearAnimation()
                         tweetsAdapter.submitList(it.data)
                     }
                     is Resource.Error -> {
                         Timber.e(it.exception)
+                        binding.loading.cancelAnimation()
+                        binding.loading.clearAnimation()
                     }
 
                 }

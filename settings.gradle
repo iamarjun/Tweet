@@ -1,2 +1,3 @@
+include ':lottie-3.4.4'
 include ':app'
 rootProject.name = "Tweet"
