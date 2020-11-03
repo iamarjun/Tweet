@@ -5,16 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.arjun.tweet.R
+import com.arjun.tweet.databinding.TweetsFragmentBinding
+import com.arjun.tweet.util.viewBinding
 
 class TweetsFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = TweetsFragment()
-    }
-
-    private lateinit var viewModel: TweetsViewModel
+    private val viewModel by viewModels<TweetsViewModel>()
+    private val binding by viewBinding(TweetsFragmentBinding::bind)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,10 +22,10 @@ class TweetsFragment : Fragment() {
         return inflater.inflate(R.layout.tweets_fragment, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(TweetsViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
     }
 
 }
