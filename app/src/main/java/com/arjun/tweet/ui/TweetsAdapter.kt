@@ -1,12 +1,20 @@
 package com.arjun.tweet.ui
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.arjun.tweet.R
 import com.arjun.tweet.databinding.LayoutTweetItemBinding
 import com.arjun.tweet.models.Data
+import com.arjun.tweet.util.GlideApp
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
+import timber.log.Timber
 
 class TweetsAdapter(private val interaction: Interaction? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -62,7 +70,10 @@ class TweetsAdapter(private val interaction: Interaction? = null) :
         fun bind(item: Data) {
 
             binding.apply {
-
+                GlideApp.with(itemView)
+                    .load(item.profileImageUrl)
+                    .placeholder(R.drawable.ic_person)
+                    .into(profilePicture)
                 userName.text = item.name
                 userHandle.text = item.handle
                 likeCount.text = "${item.favoriteCount}"
